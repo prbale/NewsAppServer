@@ -1,8 +1,13 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 const SummarizerManager = require("node-summarizer").SummarizerManager;
 
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
+
 const port = 3000;
 const NEWS_API_KEY = 'b46cd64b5e7a412e983a289e36e5c430';
 
