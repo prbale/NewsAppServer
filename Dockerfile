@@ -1,4 +1,4 @@
-# 1. Specify the base image
+# 1. Specify the base image. Downloaded from dockrhub
 FROM node:18
 
 # 2. Set the working directory inside the container
@@ -7,11 +7,8 @@ WORKDIR /app
 # 3. Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# 4. Install dependencies
+# 4. Install dependencies which are mentioned in package.json
 RUN npm install
-
-# If you're building your code for production
-# RUN npm ci --only=production
 
 # 5. Copy the rest of the application code to the working directory
 COPY . .
