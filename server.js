@@ -20,13 +20,9 @@ app.get('/summarized-news', async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const startIndex = (page - 1) * limit;
 
-
-        // const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=in&apiKey=${NEWS_API_KEY}`);
-
-        // Fetch news articles from NewsAPI
-        const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
+        const response = await axios.get(`https://newsapi.org/v2/everything`, {
             params: {
-                country: 'in',
+                q: 'news',
                 apiKey: NEWS_API_KEY,
                 pageSize: limit,
                 page: page
@@ -40,16 +36,14 @@ app.get('/summarized-news', async (req, res) => {
             let Summarizer = new SummarizerManager(article.description || '', 500);
             let summary = Summarizer.getSummaryByFrequency().summary;
 
-            //const summary = summarizer(article.content || article.description || '', 50); // Summarize to 50 words
             return {
                 title: article.title,
                 summary: summary,
                 url: article.url,
-                urlToImage: article.urlToImage
+                urlToImage: article.urlToImage,
+                publishedAt: article.publishedAt
             };
         });
-
-        // res.json(summarizedArticles);
 
         res.json({
             page: page,
